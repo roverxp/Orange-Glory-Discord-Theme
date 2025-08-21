@@ -1,87 +1,117 @@
 /**
- * @name Windows XP Terminal Theme
- * @author Grok (inspired by Bates' Fallout 4 Terminal)
- * @version 1.0.0
- * @description A theme inspired by Windows XP with a CRT terminal aesthetic
- * @source https://github.com/B4T3S/Fallout4TerminalTheme (original source)
-*/
+ * @name Orange Glory
+ * @author dcsk8prk
+ * @description A dark, orange-themed CSS theme for BetterDiscord
+ * @version 1.0.1
+ */
 
-@import url('https://B4T3S.github.io/Fallout4TerminalTheme/mainRewrite.css');
-/* ^ Main Import ^ DO NOT TOUCH. Without this, the theme won't load!!! */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
+/* Main CRT effect - credits to Bates */
 @import url('https://B4T3S.github.io/Fallout4TerminalTheme/css/crtEffect.css');
-/* ^ CRT effect ^ Kept for retro terminal look. Remove or comment out if not desired! */
 
-/* CUSTOMIZE COLORS AND XP-INSPIRED STYLES */
+/* Core theme styles */
 :root,
-.visual-refresh,
-.visual-refresh.theme-dark {
-  --rgb-highlight: 255, 165, 0; /* Primary orange highlight color */
-  --rgb-background: 0, 0, 0; /* Black background for terminal-like contrast */
-  --rgb-text: 255, 165, 0; /* Orange text for main content */
-  --rgb-close-button: 255, 0, 0; /* Red for close/deny buttons, XP style */
-  --rgb-online-color: 0, 128, 0; /* Green for online status, classic XP feel */
-  --rgb-afk-color: 255, 215, 0; /* Yellow for idle status */
-  --rgb-dnd-color: 255, 0, 0; /* Red for do not disturb */
-  --rgb-streaming-color: 128, 0, 128; /* Purple for streaming status */
+.theme-dark {
+  --primary-color: 255, 147, 0; 
+  --background-color: 10, 10, 10; 
+  --accent-text: 255, 147, 0;
+  --error-color: 200, 50, 50; 
+  --online-status: 0, 255, 100; 
+  --idle-status: 255, 200, 0; 
+  --dnd-status: 255, 50, 50;
+  --streaming-status: 150, 0, 255;
 
-  --transition-time: .3s; /* Animation speed, kept from original */
+  /* Animation and transition timing */
+  --transition-duration: 0.4s; 
 
-  --background-image: unset; /* No background image, XP-like simplicity */
+  /* Background customization */
+  --background-image: none; 
   --background-position: center;
   --background-size: cover;
-  --background-blur: 5px;
-  --background-brightness: 100%;
+  --background-brightness: 90%; 
 
-  --show-original-title: 0; /* Hide Discord's original title */
-  --show-custom-title: 1; /* Show custom XP-inspired title */
-  --custom-title-text: "Windows XP Terminal"; /* XP-inspired title */
-  --custom-title-font-size: 16px;
-  --custom-title-font-weight: bold;
-  --custom-title-margin-top: 0px;
-  --custom-title-margin-left: 0px;
-
-  /* Windows XP-inspired styles (inspired by xp.css) */
-  --xp-window-border: 1px solid #005566; /* XP window border color */
-  --xp-window-bg: rgba(192, 192, 192, 0.1); /* Light gray, semi-transparent XP window */
-  --xp-button-bg: #d4d0c8; /* XP button background */
-  --xp-button-border: 1px solid #000;
-  --xp-button-hover: #e0e0e0; /* Lighter gray for hover */
+  /* Custom title bar settings */
+  --show-original-title: 0; 
+  --custom-title-font-size: 14px; 
+  --custom-title-font-weight: 400;
+  --custom-title-margin-top: 5px; 
+  --custom-title-margin-left: 10px;
 }
 
-/* XP-inspired window styling for main container */
-[class*="app-"], [class*="chat-"] {
-  background: var(--xp-window-bg);
-  border: var(--xp-window-border);
-  border-radius: 3px; /* XP window rounded edges */
-  box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff; /* XP 3D effect */
+/* Apply the font globally */
+* {
+  font-family: 'VT323', monospace;
+  color: rgb(var(--accent-text));
+  transition: all var(--transition-duration) ease;
 }
 
-/* XP-style buttons */
-[class*="button-"], [class*="clickable-"] {
-  background: var(--xp-button-bg);
-  border: var(--xp-button-border);
-  border-radius: 3px;
-  color: var(--rgb-text);
-  padding: 4px 8px;
-  box-shadow: inset -1px -1px #000, inset 1px 1px #fff;
-  transition: background var(--transition-time);
+/* Main app background */
+#app-mount {
+  background-color: rgb(var(--background-color));
+  background-image: var(--background-image);
+  background-position: var(--background-position);
+  background-size: var(--background-size);
+  filter: brightness(var(--background-brightness));
 }
 
-[class*="button-"]:hover, [class*="clickable-"]:hover {
-  background: var(--xp-button-hover);
+#app-mount::after {
+  backdrop-filter: none;
+}
+.titleBar-AC4pGV::before {
+  content: var(--custom-title-text);
+  display: var(--show-custom-title, block);
+  font-size: var(--custom-title-font-size);
+  font-weight: var(--custom-title-font-weight);
+  position: absolute;
+  top: var(--custom-title-margin-top);
+  left: var(--custom-title-margin-left);
+  color: rgb(var(--primary-color));
 }
 
-/* Apply orange text to most elements */
-[class*="message-"], [class*="content-"], [class*="title-"], [class*="username-"] {
-  color: rgb(var(--rgb-text));
+/* Hide original title if disabled */
+.titleBar-AC4pGV .wordmark-2iDDfm {
+  display: var(--show-original-title, block);
 }
 
-/* Keep CRT effect intact, ensure it plays nicely with XP styling */
-.crt::after {
-  background: linear-gradient(
-    rgba(18, 16, 16, 0.1) 50%,
-    rgba(0, 0, 0, 0.25) 50%
-  );
-  background-size: 100% 2px;
+/* Status indicators */
+.status-1AY8sU[style*="background-color: rgb(114, 137, 218)"] {
+  background-color: rgb(var(--online-status)) !important;
+}
+.status-1AY8sU[style*="background-color: rgb(242, 101, 94)"] {
+  background-color: rgb(var(--dnd-status)) !important;
+}
+.status-1AY8sU[style*="background-color: rgb(250, 166, 26)"] {
+  background-color: rgb(var(--idle-status)) !important;
+}
+.status-1AY8sU[style*="background-color: rgb(155, 89, 182)"] {
+  background-color: rgb(var(--streaming-status)) !important;
+}
+
+.button-38aScr:hover,
+.button-1YfofB:hover {
+  background-color: rgba(var(--primary-color), 0.2);
+  color: rgb(var(--primary-color));
+}
+
+/* Close/deny buttons */
+.closeButton-1tv5uR {
+  background-color: rgba(var(--error-color), 0.3);
+}
+.closeButton-1tv5uR:hover {
+  background-color: rgba(var(--error-color), 0.7);
+}
+
+/* Message input and channel text */
+.channelTextArea-2VhZ6z,
+.name-23GUGE {
+  color: rgb(var(--accent-text));
+}
+
+/* Scrollbars */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(var(--primary-color), 0.5);
+}
+::-webkit-scrollbar-track {
+  background-color: rgba(var(--background-color), 0.8);
 }
